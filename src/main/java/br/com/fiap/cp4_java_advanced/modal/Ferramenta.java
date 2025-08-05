@@ -30,4 +30,7 @@ public class Ferramenta {
 
     @Column(nullable = false, precision = 10, scale = 2)
     private Double preco;
+
+    @Column(nullable = false, precision = 10)
+    private Integer quantidade;
 }
