@@ -15,7 +15,7 @@ public class FerramentaService {
         return repository.findAll();
     }
 
-    public Ferramenta obterPorId(Long id) {
+    public Ferramenta buscarPorId(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ferramenta com id:" + id + " não encontrada"));
     }
@@ -24,12 +24,18 @@ public class FerramentaService {
         return repository.save(ferramenta);
     }
 
-    public Ferramenta atualizar(Long id, Ferramenta ferramenta) {
-        if (repository.existsById(id)) {
-            ferramenta.setId(id);
-            return repository.save(ferramenta);
-        }
-        throw new RuntimeException("Ferramenta com id:" + id + " não encontrada");
+    public Ferramenta atualizar(Long id, Ferramenta ferramentaNova) {
+            var ferramentaAtual = repository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Ferramenta com id:" + id + " não encontrada"));
+
+            ferramentaAtual.setNome(ferramentaNova.getNome());
+            ferramentaAtual.setTipo(ferramentaAtual.getTipo());
+            ferramentaAtual.setClassificacao(ferramentaAtual.getClassificacao());
+            ferramentaAtual.setTamanho(ferramentaAtual.getTamanho());
+            ferramentaAtual.setPreco(ferramentaAtual.getPreco());
+            ferramentaAtual.setQuantidade(ferramentaAtual.getQuantidade());
+
+            return repository.save(ferramentaAtual);
     }
 
     public String deletar(Long id) {
