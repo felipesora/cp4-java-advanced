@@ -1,5 +1,6 @@
 package br.com.fiap.cp4_java_advanced.controller;
 
+import br.com.fiap.cp4_java_advanced.dto.FerramentaPatchDTO;
 import br.com.fiap.cp4_java_advanced.dto.FerramentaRequestDTO;
 import br.com.fiap.cp4_java_advanced.dto.FerramentaResponseDTO;
 import br.com.fiap.cp4_java_advanced.mapper.FerramentaMapper;
@@ -24,23 +25,17 @@ public class FerramentaController {
 
     @GetMapping
     public ResponseEntity<List<FerramentaResponseDTO>> listarTodos() {
-        var ferramentas = service.listarTodos()
-                .stream()
-                .map(FerramentaMapper::toDTO)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(ferramentas);
+        return ResponseEntity.ok(service.listarTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity buscarPorId(@PathVariable Long id) {
-        var ferramenta = FerramentaMapper.toDTO(service.buscarPorId(id));
-        return ResponseEntity.ok(ferramenta);
+    public ResponseEntity<FerramentaResponseDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(service.buscarPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity salvar(@RequestBody @Valid FerramentaRequestDTO dto, UriComponentsBuilder uriBuilder) {
-        var ferramenta = FerramentaMapper.toDTO(service.salvar(FerramentaMapper.toEntity(dto)));
+    public ResponseEntity<FerramentaResponseDTO> salvar(@RequestBody @Valid FerramentaRequestDTO dto, UriComponentsBuilder uriBuilder) {
+        var ferramenta = service.salvar(FerramentaMapper.toEntity(dto));
 
         var uri = uriBuilder.path("/ferramentas/{id}").buildAndExpand(ferramenta.getId()).toUri();
 
@@ -48,16 +43,21 @@ public class FerramentaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid FerramentaRequestDTO dto) {
-        var ferramentaAtualizada = FerramentaMapper.toDTO(service.atualizar(id, FerramentaMapper.toEntity(dto)));
+    public ResponseEntity<FerramentaResponseDTO> atualizar(@PathVariable Long id, @RequestBody @Valid FerramentaRequestDTO dto) {
+        var ferramentaAtualizada = service.atualizar(id, FerramentaMapper.toEntity(dto));
+        return ResponseEntity.ok(ferramentaAtualizada);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<FerramentaResponseDTO> atualizarParcial(@PathVariable Long id, @RequestBody @Valid FerramentaPatchDTO dto) {
+        var ferramentaAtualizada = FerramentaMapper.toDTO(service.atualizarParcial(id, dto));
 
         return ResponseEntity.ok(ferramentaAtualizada);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.deletar(id);
-
         return ResponseEntity.noContent().build();
     }
 }
