@@ -1,9 +1,12 @@
 package br.com.fiap.cp4_java_advanced.modal;
 
+import br.com.fiap.cp4_java_advanced.modal.enums.Tamanho;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TDS_TB_Ferramentas")
@@ -25,11 +28,12 @@ public class Ferramenta {
     @Column(nullable = false, length = 70)
     private String classificacao;
 
-    @Column(nullable = false, length = 50)
-    private String tamanho;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 7)
+    private Tamanho tamanho;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private Double preco;
+    private BigDecimal preco;
 
     @Column(nullable = false, precision = 10)
     private Integer quantidade;

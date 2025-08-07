@@ -3,9 +3,11 @@ package br.com.fiap.cp4_java_advanced.service;
 import br.com.fiap.cp4_java_advanced.modal.Ferramenta;
 import br.com.fiap.cp4_java_advanced.repository.FerramentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FerramentaService {
 
     @Autowired
@@ -29,11 +31,11 @@ public class FerramentaService {
                     .orElseThrow(() -> new RuntimeException("Ferramenta com id:" + id + " não encontrada"));
 
             ferramentaAtual.setNome(ferramentaNova.getNome());
-            ferramentaAtual.setTipo(ferramentaAtual.getTipo());
-            ferramentaAtual.setClassificacao(ferramentaAtual.getClassificacao());
-            ferramentaAtual.setTamanho(ferramentaAtual.getTamanho());
-            ferramentaAtual.setPreco(ferramentaAtual.getPreco());
-            ferramentaAtual.setQuantidade(ferramentaAtual.getQuantidade());
+            ferramentaAtual.setTipo(ferramentaNova.getTipo());
+            ferramentaAtual.setClassificacao(ferramentaNova.getClassificacao());
+            ferramentaAtual.setTamanho(ferramentaNova.getTamanho());
+            ferramentaAtual.setPreco(ferramentaNova.getPreco());
+            ferramentaAtual.setQuantidade(ferramentaNova.getQuantidade());
 
             return repository.save(ferramentaAtual);
     }
