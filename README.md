@@ -250,4 +250,8 @@ A classe `Ferramenta` representa a entidade principal do sistema, mapeada para a
 A API está publicada e disponível para acesso no Render.  
 Confira o projeto funcionando no link abaixo:  
 
-🔗 [Acessar API no Render](https://seu-projeto-render.onrender.com)
+🔗 [Acessar API no Render](https://cp4-java-advanced.onrender.com/ferramentas)
+
+>**Nota:** A URL base da API é `https://cp4-java-advanced.onrender.com`
+Por exemplo, para listar as ferramentas, acesse:
+`https://cp4-java-advanced.onrender.com/ferramentas`
