@@ -80,10 +80,14 @@ public class FerramentaController {
     }
 
     private FerramentaResponseDTO adicionarLinks(FerramentaResponseDTO ferramenta) {
-        ferramenta.add(linkTo(methodOn(FerramentaController.class).buscarPorId(ferramenta.getId())).withSelfRel());
-        ferramenta.add(linkTo(methodOn(FerramentaController.class).atualizar(ferramenta.getId(), null)).withRel("atualizar"));
-        ferramenta.add(linkTo(methodOn(FerramentaController.class).atualizarParcial(ferramenta.getId(), null)).withRel("atualizarParcial"));
-        ferramenta.add(linkTo(methodOn(FerramentaController.class).deletar(ferramenta.getId())).withRel("deletar"));
+        ferramenta.add(linkTo(methodOn(FerramentaController.class).buscarPorId(ferramenta.getId())).withRel("self"));
+
+        ferramenta.add(linkTo(methodOn(FerramentaController.class).atualizar(ferramenta.getId(), null)).withRel("update"));
+
+        ferramenta.add(linkTo(methodOn(FerramentaController.class).atualizarParcial(ferramenta.getId(), null)).withRel("partialUpdate"));
+
+        ferramenta.add(linkTo(methodOn(FerramentaController.class).deletar(ferramenta.getId())).withRel("delete"));
+
         return ferramenta;
     }
 
